@@ -1,0 +1,308 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My SMS Robot Web</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Raleway:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #000;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #000;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .logo-text {
+      font-size: 1.5rem;
+      color: #00f5d4;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+
+    .page {
+      display: none;
+      padding-top: 100px;
+      padding: 2rem;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 2px solid #00f5d4;
+      font-size: 1rem;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #question-title {
+      font-size: 1.5rem;
+      color: #00f5d4;
+      margin-bottom: 1rem;
+    }
+
+    #robot {
+      width: 300px;
+      height: 400px;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZN2-aNm2mZrReOszLaxZ1QUgUN8Ao5MWXA&s');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 2rem auto;
+    }
+
+    #robot-name {
+      text-align: center;
+      font-size: 2rem;
+      color: #00f5d4;
+      background-color: #ffffff;
+      margin-top: -60px;
+      padding: 10px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      top: -50px;
+      font-weight: bold;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,1));
+    }
+
+    .answer-box {
+      border: 2px solid #00f5d4;
+      padding: 1rem;
+      margin-top: 1rem;
+      background-color: #f9f9f9;
+      color: #000;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-text">Welcome to SMS</div>
+  <div>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('work')">Work</a>
+  </div>
+</nav>
+
+<!-- Home Page -->
+<div id="home" class="page active">
+  <div id="question-title">ASK ANYTHING</div>
+  <div style="margin: 0.5rem 0;">
+    <button onclick="startVoiceInput()">🎤 Ask by Voice</button>
+    <select id="languageSelect" onchange="translateAnswer()" style="background-color: #003366; color: #fff; border: 2px solid #00f5d4; padding: 0.5rem; border-radius: 4px;">
+      <option value="en">English</option>
+      <option value="ml">Malayalam</option>
+      <option value="ar">Arabic</option>
+      <option value="ur">Urdu</option>
+      <option value="hi">Hindi</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <textarea id="questionBox" placeholder="Ask any question..."></textarea>
+  </div>
+  <button id="askButton">Ask</button>
+  <div id="answerArea" class="answer-box"></div>
+  <div id="robot"></div>
+  <div id="robot-name">S_M_S</div>
+</div>
+
+<!-- Work Page -->
+<div id="work" class="page">
+  <h2 style="text-align:left; color:#000; margin-left:2rem;">SEND A WORK REQUEST</h2>
+  <form action="https://formsubmit.co/72216sms@gmail.com" method="POST" style="max-width:500px; margin:2rem 2rem;">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required="">
+    </div>
+    <div class="form-group">
+      <textarea name="message" placeholder="Tell me the work" rows="5" required=""></textarea>
+    </div>
+    <button type="submit">SEND</button>
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://sites.google.com/view/hikmaofficial">
+  </form>
+</div>
+
+<script>
+  const bios = {
+    "song kang": `Born: April 23, 1994, Suwon, South Korea<br>Profession: Actor<br>Known For: Love Alarm, Sweet Home, Nevertheless, Forecasting Love and Weather<br>Facts: Known as “Son of Netflix” for frequent appearances in Netflix K-dramas.`,
+    "kim yoo-jung": `Born: September 22, 1999, Seoul, South Korea<br>Profession: Actress<br>Known For: Love in the Moonlight, Backstreet Rookie, 20th Century Girl<br>Facts: Child actress turned award-winning star known for historical dramas.`,
+    "yang yang": `Born: September 9, 1991, Shanghai, China<br>Profession: Actor<br>Known For: Love O2O, You Are My Glory, Who Rules the World<br>Facts: Former dancer turned actor, popular across Asia for romantic dramas.`,
+    "zheng shuang": `Born: August 22, 1991, Shenyang, China<br>Profession: Actress (Currently inactive)<br>Known For: Meteor Shower, Love O2O<br>Controversy: Blacklisted in 2021 over surrogacy scandal and tax evasion.`,
+    "kim soo-hyun": `Born: February 16, 1988, Seoul, South Korea<br>Profession: Actor<br>Known For: Dream High, Moon Embracing the Sun, My Love from the Star, It’s Okay to Not Be Okay<br>Facts: One of Korea’s highest-paid actors, known for emotional acting.`,
+    "kim ji-won": `Born: October 19, 1992, Seoul, South Korea<br>Profession: Actress<br>Known For: The Heirs, Descendants of the Sun, Fight for My Way, Queen of Tears<br>Facts: Known for portraying both strong and soft characters with depth.`
+  };
+
+  const dramas = {
+    "my demon": `My Demon is a fantasy-romance K-drama where a demon loses his powers and must rely on a strong, rich heiress to survive. Stars Kim Yoo-jung and Song Kang.`,
+    "love o2o": `Love O2O is a Chinese romantic drama about two university students who fall in love through an online game. Stars Yang Yang and Zheng Shuang.`,
+    "queen of tears": `Queen of Tears is a K-drama about a married couple overcoming hardships and rekindling their love. Stars Kim Soo-hyun and Kim Ji-won.`
+  };
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  window.onload = () => {
+    document.getElementById("askButton").onclick = answerQuestion;
+    speechSynthesis.onvoiceschanged = () => {};
+  };
+
+  function startVoiceInput() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = function (event) {
+      document.getElementById('questionBox').value = event.results[0][0].transcript;
+      answerQuestion();
+    };
+    recognition.start();
+  }
+
+  async function translateAnswer() {
+    const lang = document.getElementById("languageSelect").value;
+    const text = document.getElementById("answerArea").innerText;
+    if (!text) return;
+
+    try {
+      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`);
+      const data = await res.json();
+      const translated = data[0].map(t => t[0]).join('');
+      document.getElementById("answerArea").innerHTML = `<p><strong>Translated Answer:</strong><br>${translated}</p>`;
+    } catch {
+      document.getElementById("answerArea").innerHTML += `<p style="color:red;">Translation failed.</p>`;
+    }
+  }
+
+  async function answerQuestion() {
+    const question = document.getElementById('questionBox').value.trim().toLowerCase();
+    const answerArea = document.getElementById('answerArea');
+    if (!question) {
+      answerArea.innerHTML = '<p>Please ask something.</p>';
+      return;
+    }
+
+    if (["who are you", "what's your name", "what is your name"].includes(question)) {
+      const smsBio = `
+        <strong>S_M_S Answer:</strong><br>
+        Name: S_M_S<br>
+        Nickname: Shaz<br>
+        From: India, Kerala<br>
+        Education: Darul Huda University (Nahjurrashad Islamic College, 3rd Class)<br>
+        Languages: English, Malayalam, Arabic, Urdu, Hindi<br>
+        Skills: Singing, Speech, Writing, Maths, Science, Social Science, IT<br>
+        Websites: HIKMA, NEMODA<br>
+        Roles: Writer, IT Expert, Opposition Secretary of HIKMA, Top Scorer in HISAN & Class Ranker
+      `;
+      answerArea.innerHTML = `<p>${smsBio}</p>`;
+      speakTranslated("Name: S_M_S. Nickname: Shaz. From India, Kerala. Education: Darul Huda University. Skills include singing, writing, and IT.");
+      return;
+    }
+
+    if (question === "hello") {
+      answerArea.innerHTML = `<p><strong>S_M_S Answer:</strong> Hey, what you want?</p>`;
+      speakTranslated("Hey, what you want?");
+      return;
+    }
+
+    if (dramas[question]) {
+      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Summary:</strong><br>${dramas[question]}</p>`;
+      speakTranslated(dramas[question]);
+      return;
+    }
+
+    if (bios[question]) {
+      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Biography:</strong><br>${bios[question]}</p>`;
+      speakTranslated(bios[question]);
+      return;
+    }
+
+    // Fallback to Wikipedia
+    answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><em>Searching Wikipedia...</em></p>`;
+    try {
+      const wikiResponse = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(question)}`);
+      const wikiData = await wikiResponse.json();
+      const wikiAnswer = wikiData.extract || 'No result from Wikipedia.';
+      answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>S_M_S Answer (Wikipedia):</strong><br>${wikiAnswer}</p>`;
+      speakTranslated(wikiAnswer);
+    } catch {
+      answerArea.innerHTML += `<p style="color:red;"><strong>Error:</strong> Could not fetch full answer.</p>`;
+    }
+  }
+
+  function speakTranslated(text) {
+    const lang = document.getElementById("languageSelect").value;
+    const voices = speechSynthesis.getVoices();
+    let langCode = 'en-US';
+    if (lang === 'ml') langCode = 'ml-IN';
+    else if (lang === 'ar') langCode = 'ar-SA';
+    else if (lang === 'ur') langCode = 'ur-IN';
+    else if (lang === 'hi') langCode = 'hi-IN';
+
+    const targetVoice = voices.find(v => v.lang === langCode) || voices[0];
+
+    fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`)
+      .then(res => res.json())
+      .then(data => {
+        const translated = data[0].map(t => t[0]).join('');
+        const utter = new SpeechSynthesisUtterance(translated);
+        utter.lang = langCode;
+        utter.voice = targetVoice;
+        speechSynthesis.speak(utter);
+      })
+      .catch(() => {
+        const fallback = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(fallback);
+      });
+  }
+</script>
+
+
+
+</body></html>
