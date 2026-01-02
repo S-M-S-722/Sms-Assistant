@@ -1,322 +1,612 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My SMS Robot Web</title>
-  
-  <!-- Favicon for browser tabs -->
-  <link rel="icon" href="https://ik.imagekit.io/shaz/ChatGPT_Image_Oct_31__2025__11_00_46_AM-removebg-preview.png?updatedAt=1761889086163" type="image/png">
-  
-  <!-- Structured data for Google Search results -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "My SMS Robot Web",
-    "url": "https://sms-assistant.vercel.app",
-    "logo": "https://ik.imagekit.io/shaz/ChatGPT_Image_Oct_31__2025__11_00_46_AM-removebg-preview.png?updatedAt=1761889086163"
-  }
-  </script>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Raleway:wght@400;700&amp;display=swap" rel="stylesheet">
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: #ffffff;
-      color: #000;
-      overflow-x: hidden;
-      overflow-y: auto;
-      height: 100vh;
-      width: 100vw;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lionel Messi: The Vibrant Comic Legacy</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        heading: ['Bebas Neue', 'sans-serif'], // Comic/poster font
+                    },
+                    colors: {
+                        // Vibrant, comic-style theme colors
+                        'primary-light': '#f7f7f7', // Light background
+                        'secondary-card': '#ffffff', // White card background
+                        'accent-blue': '#3b82f6', // Argentina Sky Blue/Royal Blue
+                        'accent-red': '#ef4444', // Highlight Red
+                        'text-dark': '#1f2937', // Dark gray text
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles using the generated image as a background pattern */
+        body {
+            background-color: #f7f7f7;
+            background-image: none; /* Will be set dynamically by JS */
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: fixed;
+            color: #1f2937; /* Dark text for light background */
+            min-height: 100vh;
+        }
+        /* Custom styling for the timeline line */
+        .timeline-line {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 6px; /* Thicker line for comic style */
+            background-color: #3b82f6; /* Accent Blue */
+            border-radius: 9999px;
+            transform: translateX(-50%);
+        }
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 1rem;
+                transform: none;
+            }
+        }
+        /* Style for the active timeline dot */
+        .timeline-dot {
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #ef4444; /* Accent Red */
+            border-radius: 50%;
+            border: 6px solid #f7f7f7; /* Primary light border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        @media (max-width: 768px) {
+            .timeline-dot {
+                left: 1rem;
+                transform: none;
+            }
+        }
+        /* Style for image placeholders/loaders */
+        .image-placeholder {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e5e5e5; /* Light gray placeholder */
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 2px dashed #9ca3af;
+        }
+        /* Class for the active tab button */
+        .tab-button.active {
+            background-color: #ef4444; /* Accent Red */
+            color: white;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.4);
+            transform: translateY(-2px);
+        }
+        /* Class for inactive tab buttons */
+        .tab-button:not(.active) {
+            background-color: #3b82f6; /* Accent Blue */
+            color: white;
+            opacity: 0.95;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        /* Ensure table text is dark */
+        .data-table-text {
+            color: #1f2937;
+        }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #000;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav .logo-text {
-      font-size: 1.5rem;
-      color: #00f5d4;
-      font-weight: bold;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
-    }
-
-    .page {
-      display: none;
-      padding-top: 100px;
-      padding: 2rem;
-    }
-
-    .active {
-      display: block;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    textarea, input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: 2px solid #00f5d4;
-      font-size: 1rem;
-      background-color: #000;
-      color: #fff;
-      font-family: 'Raleway', sans-serif;
-    }
-
-    button {
-      background-color: #007BFF;
-      color: #fff;
-      padding: 0.7rem 1.5rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    #question-title {
-      font-size: 1.5rem;
-      color: #00f5d4;
-      margin-bottom: 1rem;
-    }
-
-    #robot {
-      width: 300px;
-      height: 400px;
-      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZN2-aNm2mZrReOszLaxZ1QUgUN8Ao5MWXA&s');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin: 2rem auto;
-    }
-
-    #robot-name {
-      text-align: center;
-      font-size: 2rem;
-      color: #00f5d4;
-      background-color: #ffffff;
-      margin-top: -60px;
-      padding: 10px;
-      width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      top: -50px;
-      font-weight: bold;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,1));
-    }
-
-    .answer-box {
-      border: 2px solid #00f5d4;
-      padding: 1rem;
-      margin-top: 1rem;
-      background-color: #f9f9f9;
-      color: #000;
-      border-radius: 8px;
-    }
-  </style>
+        /* Full-screen Loader for Background */
+        #background-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 50; /* Above all content */
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+        .hidden-loader {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+    </style>
 </head>
-<body>
 
-<nav>
-  <div class="logo-text">Welcome to SMS</div>
-  <div>
-    <a href="#" onclick="showPage('home')">Home</a>
-    <a href="#" onclick="showPage('work')">Work</a>
-  </div>
-</nav>
+<body class="bg-primary-light text-text-dark font-sans antialiased transition-background duration-500">
 
-<!-- Home Page -->
-<div id="home" class="page active">
-  <div id="question-title">ASK ANYTHING</div>
-  <div style="margin: 0.5rem 0;">
-    <button onclick="startVoiceInput()">🎤 Ask by Voice</button>
-    <select id="languageSelect" onchange="translateAnswer()" style="background-color: #003366; color: #fff; border: 2px solid #00f5d4; padding: 0.5rem; border-radius: 4px;">
-      <option value="en">English</option>
-      <option value="ml">Malayalam</option>
-      <option value="ar">Arabic</option>
-      <option value="ur">Urdu</option>
-      <option value="hi">Hindi</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <textarea id="questionBox" placeholder="Ask any question..."></textarea>
-  </div>
-  <button id="askButton">Ask</button>
-  <div id="answerArea" class="answer-box"></div>
-  <div id="robot"></div>
-  <div id="robot-name">S_M_S</div>
-</div>
-
-<!-- Work Page -->
-<div id="work" class="page">
-  <h2 style="text-align:left; color:#000; margin-left:2rem;">SEND A WORK REQUEST</h2>
-  <form action="https://formsubmit.co/72216sms@gmail.com" method="POST" style="max-width:500px; margin:2rem 2rem;">
-    <div class="form-group">
-      <input type="text" name="name" placeholder="Your Name" required="">
+    <!-- Background Loader Overlay -->
+    <div id="background-loader">
+        <svg class="animate-spin h-12 w-12 text-accent-red mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-xl font-heading text-text-dark/80 tracking-widest">GENERATING COMIC BACKGROUND...</p>
+        <p class="text-sm mt-1 text-text-dark/60">(This takes a few moments)</p>
     </div>
-    <div class="form-group">
-      <textarea name="message" placeholder="Tell me the work" rows="5" required=""></textarea>
-    </div>
-    <button type="submit">SEND</button>
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_next" value="https://sites.google.com/view/hikmaofficial">
-  </form>
-</div>
 
+    
+<header class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32 shadow-xl bg-secondary-card/95 backdrop-blur-sm border-b-8 border-accent-red">
+        <div class="container mx-auto px-4 relative z-10 text-center max-w-7xl">
+            <span class="text-accent-blue text-lg uppercase font-extrabold tracking-widest block mb-2">The Golden Era</span>
+            <h1 class="text-7xl md:text-9xl font-heading leading-none text-text-dark tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-accent-red">
+                LIONEL MESSI
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-text-dark font-semibold max-w-3xl mx-auto">
+                A monumental career, chronicled in comic-book fashion: The chapters, the trophies, and the records that define football's greatest legend.
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
+
+        
+<section id="stats" class="mb-16 md:mb-24">
+            <h2 class="text-4xl font-extrabold text-center text-accent-red mb-8 font-heading tracking-wider">CAREER SNAPSHOT</h2>
+
+            <div class="bg-secondary-card p-6 md:p-10 rounded-2xl shadow-2xl border-4 border-accent-blue/50">
+                
+<div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6 mb-8" id="tab-nav">
+                    
+<button class="tab-button active font-extrabold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl uppercase tracking-wider text-lg" data-tab="metrics">Key Metrics</button>
+                    <button class="tab-button font-extrabold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl uppercase tracking-wider text-lg" data-tab="individual">Individual Awards</button>
+                    <button class="tab-button font-extrabold py-3 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl uppercase tracking-wider text-lg" data-tab="collective">Collective Trophies</button>
+                </div>
+
+                
+<div class="tab-content block data-table-text" id="metrics">
+                    <h3 class="text-3xl font-bold text-accent-blue mb-6 border-b-2 border-accent-red pb-2 font-heading">UNPRECEDENTED NUMBERS</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-primary-light rounded-xl shadow-inner border border-accent-blue/50">
+                            <thead class="bg-accent-blue/20">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-extrabold uppercase tracking-wider text-text-dark">Metric</th>
+                                    <th class="px-4 py-3 text-right text-sm font-extrabold uppercase tracking-wider text-text-dark">Count</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-accent-blue/20 font-semibold">
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Goals (Career)</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">849+</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Assists (Career)</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">375+</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Appearances (Career)</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">1100+</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Hattricks</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">57</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">All-Time Goalscorer (Barcelona)</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">672</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">All-Time Goalscorer (Argentina)</td><td class="px-4 py-4 whitespace-nowrap text-right font-mono text-xl text-accent-red">106</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                
+<div class="tab-content hidden data-table-text" id="individual">
+                    <h3 class="text-3xl font-bold text-accent-blue mb-6 border-b-2 border-accent-red pb-2 font-heading">INDIVIDUAL AWARDS: THE GOLDEN STANDARD</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-primary-light rounded-xl shadow-inner border border-accent-blue/50">
+                            <thead class="bg-accent-blue/20">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-extrabold uppercase tracking-wider text-text-dark">Award</th>
+                                    <th class="px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wider text-text-dark">Count</th>
+                                    <th class="px-4 py-3 text-left text-sm font-extrabold uppercase tracking-wider text-text-dark">Notable Years</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-accent-blue/20 font-semibold">
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Ballon d'Or</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">8</td><td class="px-4 py-4">2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">The Best FIFA Men's Player</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">3</td><td class="px-4 py-4">2019, 2022, 2023</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">European Golden Shoe</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">6</td><td class="px-4 py-4">2010, 2012, 2013, 2017, 2018, 2019</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">FIFA World Cup Golden Ball</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">2</td><td class="px-4 py-4">2014, 2022</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                
+<div class="tab-content hidden data-table-text" id="collective">
+                    <h3 class="text-3xl font-bold text-accent-blue mb-6 border-b-2 border-accent-red pb-2 font-heading">TOTAL TEAM TROPHIES: 44</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-primary-light rounded-xl shadow-inner border border-accent-blue/50">
+                            <thead class="bg-accent-blue/20">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-extrabold uppercase tracking-wider text-text-dark">Trophy</th>
+                                    <th class="px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wider text-text-dark">Count</th>
+                                    <th class="px-4 py-3 text-left text-sm font-extrabold uppercase tracking-wider text-text-dark">Notable Years</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-accent-blue/20 font-semibold">
+                                <tr><td class="px-4 py-4 whitespace-nowrap">FIFA World Cup</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">1</td><td class="px-4 py-4">2022</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Copa América</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">2</td><td class="px-4 py-4">2021, 2024</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">UEFA Champions League</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">4</td><td class="px-4 py-4">2006, 2009, 2011, 2015</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">La Liga</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">10</td><td class="px-4 py-4">2005 - 2019 (Multiple)</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Ligue 1</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">2</td><td class="px-4 py-4">2022, 2023</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">Copa del Rey</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">7</td><td class="px-4 py-4">2009, 2012, 2015, 2016, 2017, 2018, 2021</td></tr>
+                                <tr><td class="px-4 py-4 whitespace-nowrap">FIFA Club World Cup</td><td class="px-4 py-4 whitespace-nowrap text-center font-mono text-xl text-accent-red">3</td><td class="px-4 py-4">2009, 2011, 2015</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+<section id="timeline" class="relative">
+            <h2 class="text-4xl font-extrabold text-center text-text-dark mb-12 font-heading tracking-wider">THE CHAPTERS OF A LEGEND</h2>
+
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                
+<div class="hidden md:block timeline-line"></div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-blue/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">I. ROSARIO: THE START (1987)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Born in Rosario, Argentina, Messi spent his early years playing for local club Newell’s Old Boys. This is where the magic began.</p>
+                            
+<div id="image-1" class="image-placeholder" data-prompt="A detailed, colorful comic book panel showing a young 6-year-old Lionel Messi playing football on a dusty field in Rosario. Bright daylight, dynamic pose, realistic colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-red/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">II. CATALONIA: THE NAPKIN (2000)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">At 13, his raw talent brought him to Barcelona. The famous napkin contract formalized his path after his family moved to Spain.</p>
+                             
+<div id="image-2" class="image-placeholder" data-prompt="A close-up comic book illustration of a contract signed on a paper napkin, lying on a wooden table. Clear, bright lighting, realistic colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-blue/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">III. TAKES FLIGHT: THE DEBUT (2004)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">He made his competitive debut at 17, scoring his first professional goal which was celebrated by Ronaldinho, symbolizing the passing of the torch.</p>
+                            
+<div id="image-3" class="image-placeholder" data-prompt="An action-packed, colorful comic book panel of Ronaldinho lifting a young Messi onto his back after his first goal. Bright stadium lights, detailed uniforms, vibrant colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-red/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">IV. DYNASTY ESTABLISHED: THE PEP ERA (2009)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Under Pep Guardiola, Messi led Barcelona to the first of two historic Trebles (League, Cup, Champions League), establishing a dynasty.</p>
+                            
+<div id="image-4" class="image-placeholder" data-prompt="A detailed comic book panel showing Messi, Pep Guardiola, and the Barcelona team celebrating the historic Treble (Champions League, La Liga, Copa del Rey). Triumphant moment, colorful stadium, realistic colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-blue/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">V. MSN: THE TRIDENT (2014-2017)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">The formation of the formidable "MSN" trio (Messi, Suárez, and Neymar) shattered goal records and secured their second Treble in 2015.</p>
+                             
+<div id="image-5" class="image-placeholder" data-prompt="A dynamic, realistic-color comic book illustration of the 'MSN' trio (Messi, Suárez, Neymar) celebrating a goal together. Intense emotion, vibrant colors, comic book action panel style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-red/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">VI. THE LAST DANCE AT CAMP NOU (2021)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Messi lifted the Copa del Rey in 2021, a final club trophy, marking the end of a long, glorious chapter with his boyhood club.</p>
+                             
+<div id="image-6" class="image-placeholder" data-prompt="A bright comic book illustration of Messi lifting the Copa del Rey trophy in 2021, showing his focused expression. Realistic colors, detailed trophy, dramatic comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-blue/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">VII. A TEARFUL FAREWELL (AUGUST 2021)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Due to financial constraints at Barcelona, Messi was unable to renew his contract. The unexpected departure was filled with deep emotion.</p>
+                            
+<div id="image-7" class="image-placeholder" data-prompt="An emotional comic book portrait of Messi at his tearful farewell press conference from Barcelona. Detailed expression, bright colors, realistic colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-red/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">VIII. THE PARISIAN INTERLUDE (2021-2023)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Messi's move to Paris Saint-Germain (PSG) resulted in two Ligue 1 titles, marking a new, albeit short-lived, chapter in his career.</p>
+                             
+<div id="image-8" class="image-placeholder" data-prompt="A colorful, realistic comic book panel of Messi holding the number 30 PSG jersey upon his arrival in Paris. Iconic photo setting, bright lighting, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-blue/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">IX. INTERNATIONAL REDEMPTION: THE DREAM (2022)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">The ultimate prize: The FIFA World Cup in 2022, cementing his status as the greatest player of all time.</p>
+                            
+<div id="image-9" class="image-placeholder mb-4" data-prompt="The iconic, triumphant comic book panel of Messi lifting the FIFA World Cup trophy with the Argentina team celebrating around him. Stadium filled with light, confetti, vibrant colors, realistic comic style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading World Cup/Copa América Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+<div class="mb-12 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 md:w-5/12 w-full">
+                        <div class="bg-secondary-card rounded-xl shadow-2xl p-6 relative border-4 border-accent-red/50 transform hover:scale-[1.02] transition duration-300">
+                            <h3 class="text-xl font-extrabold text-accent-red mb-2 font-heading tracking-wide">X. GLOBAL ICON: THE AMERICAN DREAM (2023)</h3>
+                            <p class="text-sm font-medium text-text-dark/90 mb-4">Messi's move to Inter Miami CF shifted the global football spotlight to MLS, confirming his status as a truly global icon.</p>
+                            
+<div id="image-11" class="image-placeholder" data-prompt="A bright, welcoming comic book illustration of Messi at the Inter Miami CF ceremony, wearing the pink jersey. Sunny stadium, vibrant colors, comic book style.">
+                                <span class="animate-pulse text-sm text-text-dark/70">Loading Comic-Style Image...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-dot top-0"></div>
+                    <div class="order-1 w-5/12 hidden md:block"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-text-dark py-8 text-center text-gray-300">
+        <p class="text-sm">Lionel Messi Legacy Site | Designed in Comic-Book Style | Content based on career statistics and milestones.</p>
+    </footer>
+
+    
 <script>
-  const bios = {
-    "song kang": `Born: April 23, 1994, Suwon, South Korea<br>Profession: Actor<br>Known For: Love Alarm, Sweet Home, Nevertheless, Forecasting Love and Weather<br>Facts: Known as "Son of Netflix" for frequent appearances in Netflix K-dramas.`,
-    "kim yoo-jung": `Born: September 22, 1999, Seoul, South Korea<br>Profession: Actress<br>Known For: Love in the Moonlight, Backstreet Rookie, 20th Century Girl<br>Facts: Child actress turned award-winning star known for historical dramas.`,
-    "yang yang": `Born: September 9, 1991, Shanghai, China<br>Profession: Actor<br>Known For: Love O2O, You Are My Glory, Who Rules the World<br>Facts: Former dancer turned actor, popular across Asia for romantic dramas.`,
-    "zheng shuang": `Born: August 22, 1991, Shenyang, China<br>Profession: Actress (Currently inactive)<br>Known For: Meteor Shower, Love O2O<br>Controversy: Blacklisted in 2021 over surrogacy scandal and tax evasion.`,
-    "kim soo-hyun": `Born: February 16, 1988, Seoul, South Korea<br>Profession: Actor<br>Known For: Dream High, Moon Embracing the Sun, My Love from the Star, It's Okay to Not Be Okay<br>Facts: One of Korea's highest-paid actors, known for emotional acting.`,
-    "kim ji-won": `Born: October 19, 1992, Seoul, South Korea<br>Profession: Actress<br>Known For: The Heirs, Descendants of the Sun, Fight for My Way, Queen of Tears<br>Facts: Known for portraying both strong and soft characters with depth.`
-  };
+        // --- Core LLM API Constants ---
+        const IMAGE_MODEL = 'imagen-4.0-generate-001';
+        const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
+        const apiKey = ""; // Canvas runtime provides the key if this is empty
 
-  const dramas = {
-    "my demon": `My Demon is a fantasy-romance K-drama where a demon loses his powers and must rely on a strong, rich heiress to survive. Stars Kim Yoo-jung and Song Kang.`,
-    "love o2o": `Love O2O is a Chinese romantic drama about two university students who fall in love through an online game. Stars Yang Yang and Zheng Shuang.`,
-    "queen of tears": `Queen of Tears is a K-drama about a married couple overcoming hardships and rekindling their love. Stars Kim Soo-hyun and Kim Ji-won.`
-  };
+        // --- Tab Functionality ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
+            const activateTab = (tabId) => {
+                // Hide all content and deactivate all buttons
+                tabContents.forEach(content => content.classList.add('hidden'));
+                tabButtons.forEach(button => button.classList.remove('active'));
 
-  window.onload = () => {
-    document.getElementById("askButton").onclick = answerQuestion;
-    speechSynthesis.onvoiceschanged = () => {};
-  };
+                // Show the selected content and activate the clicked button
+                const selectedContent = document.getElementById(tabId);
+                const selectedButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+                
+                if (selectedContent) selectedContent.classList.remove('hidden');
+                if (selectedButton) selectedButton.classList.add('active');
+            };
 
-  function startVoiceInput() {
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-    recognition.onresult = function (event) {
-      document.getElementById('questionBox').value = event.results[0][0].transcript;
-      answerQuestion();
-    };
-    recognition.start();
-  }
+            // Event listener for tab clicks
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    activateTab(tabId);
+                });
+            });
+        });
 
-  async function translateAnswer() {
-    const lang = document.getElementById("languageSelect").value;
-    const text = document.getElementById("answerArea").innerText;
-    if (!text) return;
+        // Utility function for Exponential Backoff
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
-    try {
-      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`);
-      const data = await res.json();
-      const translated = data[0].map(t => t[0]).join('');
-      document.getElementById("answerArea").innerHTML = `<p><strong>Translated Answer:</strong><br>${translated}</p>`;
-    } catch {
-      document.getElementById("answerArea").innerHTML += `<p style="color:red;">Translation failed.</p>`;
-    }
-  }
+        /**
+         * Retries the fetch request with exponential backoff.
+         * @param {string} url - The API URL.
+         * @param {object} options - Fetch request options (method, headers, body).
+         * @param {number} maxRetries - Maximum number of retries.
+         */
+        async function fetchWithExponentialBackoff(url, options, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429 || response.status >= 500) {
+                        // Retry for rate limiting (429) and server errors (5xx)
+                        throw new Error(`Server error or rate limit (${response.status})`);
+                    }
+                    if (!response.ok) {
+                        // Handle other non-successful responses
+                        let errorBody = await response.text();
+                        try {
+                            errorBody = JSON.parse(errorBody);
+                        } catch (e) {
+                            // Keep as text if parsing fails
+                        }
+                        throw new Error(`API Request failed with status ${response.status}: ${JSON.stringify(errorBody)}`);
+                    }
+                    return response;
+                } catch (error) {
+                    console.error(`Attempt ${i + 1} failed:`, error.message);
+                    if (i === maxRetries - 1) {
+                        throw error; // Re-throw if last attempt failed
+                    }
+                    const delay = Math.pow(2, i) * 1000;
+                    await sleep(delay);
+                }
+            }
+        }
+        
+        /**
+         * Generates an image using the Imagen model.
+         */
+        const generateImage = async (prompt, maxRetries = 3) => {
+            const apiUrl = `${BASE_URL}${IMAGE_MODEL}:predict?key=${apiKey}`;
 
-  async function answerQuestion() {
-    const question = document.getElementById('questionBox').value.trim().toLowerCase();
-    const answerArea = document.getElementById('answerArea');
-    if (!question) {
-      answerArea.innerHTML = '<p>Please ask something.</p>';
-      return;
-    }
+            const payload = {
+                instances: [{ prompt: prompt }],
+                parameters: { "sampleCount": 1 }
+            };
 
-    if (["who are you", "what's your name", "what is your name"].includes(question)) {
-      const smsBio = `
-        <strong>S_M_S Answer:</strong><br>
-        Name: S_M_S<br>
-        Nickname: Shaz<br>
-        From: India, Kerala<br>
-        Education: Darul Huda University (Nahjurrashad Islamic College, 3rd Class)<br>
-        Languages: English, Malayalam, Arabic, Urdu, Hindi<br>
-        Skills: Singing, Speech, Writing, Maths, Science, Social Science, IT<br>
-        Websites: HIKMA, NEMODA<br>
-        Roles: Writer, IT Expert, Opposition Secretary of HIKMA, Top Scorer in HISAN & Class Ranker
-      `;
-      answerArea.innerHTML = `<p>${smsBio}</p>`;
-      speakTranslated("Name: S_M_S. Nickname: Shaz. From India, Kerala. Education: Darul Huda University. Skills include singing, writing, and IT.");
-      return;
-    }
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetchWithExponentialBackoff(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-    if (question === "hello") {
-      answerArea.innerHTML = `<p><strong>S_M_S Answer:</strong> Hey, what you want?</p>`;
-      speakTranslated("Hey, what you want?");
-      return;
-    }
+                    const result = await response.json();
+                    const base64Data = result?.predictions?.[0]?.bytesBase64Encoded;
 
-    if (dramas[question]) {
-      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Summary:</strong><br>${dramas[question]}</p>`;
-      speakTranslated(dramas[question]);
-      return;
-    }
+                    if (base64Data) {
+                        return `data:image/png;base64,${base64Data}`;
+                    }
+                    
+                    // If call succeeds but no image is returned (e.g., safety filter), stop retrying.
+                    if (result?.error) {
+                         throw new Error(`Image generation failed permanently: ${result.error.message}`);
+                    }
 
-    if (bios[question]) {
-      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Biography:</strong><br>${bios[question]}</p>`;
-      speakTranslated(bios[question]);
-      return;
-    }
+                    // For transient errors, just log and retry in the next loop iteration
+                    console.warn(`Attempt ${i + 1} failed for prompt: "${prompt}". Retrying...`);
 
-    // Fallback to Wikipedia
-    answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><em>Searching Wikipedia...</em></p>`;
-    try {
-      const wikiResponse = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(question)}`);
-      const wikiData = await wikiResponse.json();
-      const wikiAnswer = wikiData.extract || 'No result from Wikipedia.';
-      answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>S_M_S Answer (Wikipedia):</strong><br>${wikiAnswer}</p>`;
-      speakTranslated(wikiAnswer);
-    } catch {
-      answerArea.innerHTML += `<p style="color:red;"><strong>Error:</strong> Could not fetch full answer.</p>`;
-    }
-  }
-
-  function speakTranslated(text) {
-    const lang = document.getElementById("languageSelect").value;
-    const voices = speechSynthesis.getVoices();
-    let langCode = 'en-US';
-    if (lang === 'ml') langCode = 'ml-IN';
-    else if (lang === 'ar') langCode = 'ar-SA';
-    else if (lang === 'ur') langCode = 'ur-IN';
-    else if (lang === 'hi') langCode = 'hi-IN';
-
-    const targetVoice = voices.find(v => v.lang === langCode) || voices[0];
-
-    fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`)
-      .then(res => res.json())
-      .then(data => {
-        const translated = data[0].map(t => t[0]).join('');
-        const utter = new SpeechSynthesisUtterance(translated);
-        utter.lang = langCode;
-        utter.voice = targetVoice;
-        speechSynthesis.speak(utter);
-      })
-      .catch(() => {
-        const fallback = new SpeechSynthesisUtterance(text);
-        speechSynthesis.speak(fallback);
-      });
-  }
-</script>
+                } catch (error) {
+                    console.error(`API call error (Attempt ${i + 1}):`, error.message);
+                    if (i === maxRetries - 1) {
+                        return null; // Return null if all retries fail
+                    }
+                    const delay = Math.pow(2, i) * 2000; // Increased delay for image API
+                    await sleep(delay);
+                }
+            }
+            return null; // Should be unreachable if maxRetries > 0, but safe fallback
+        };
 
 
-</body></html>
+        // Function to handle loading a single image panel
+        const loadSinglePanel = async (containerId, prompt) => {
+             const container = document.getElementById(containerId);
+             if (!container || !prompt) return;
+
+             // Set initial loading state
+             container.innerHTML = `<div class="p-6"><svg class="animate-spin h-6 w-6 text-accent-blue mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-xs mt-2 text-text-dark/70">Generating Panel...</p></div>`;
+            
+             const imgUrl = await generateImage(prompt, 3); // 3 retries max
+            
+             if (imgUrl) {
+                 container.innerHTML = `<img src="${imgUrl}" alt="Messi Career Highlight" class="w-full h-auto rounded-lg shadow-lg border-2 border-text-dark/10" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-accent-red font-bold p-4\\'>Image failed to load in browser.</span>';" />`;
+             } else {
+                 // Display a specific error message if the image failed to generate after retries
+                 container.innerHTML = `<span class="text-accent-red font-bold p-4">Image panel generation failed after retries.</span>`;
+             }
+        }
+
+        const loadImages = async () => {
+            const backgroundLoader = document.getElementById('background-loader');
+            const bgContainer = document.body;
+            
+            // --- 1. Load Background Image ---
+            const bgPrompt = "A seamless, full-color, highly detailed comic book style collage wallpaper of Lionel Messi's career. The collage must feature sequential comic panels, realistic colors, dynamic action shots, and trophy celebrations. Include iconic moments like Messi celebrating the World Cup, scoring the 'hand of God' tribute goal, holding a Ballon d'Or, and wearing Barcelona and Argentina jerseys. The overall look is bright, vibrant, and dense with realistic comic art detail on a light background.";
+            const bgUrl = await generateImage(bgPrompt, 3); // 3 retries for background
+            
+            if (bgUrl) {
+                // Apply the generated image as a background
+                bgContainer.style.backgroundImage = `url('${bgUrl}')`;
+                bgContainer.style.backgroundSize = 'cover';
+                bgContainer.style.backgroundPosition = 'center center';
+                
+            } else {
+                console.error("Failed to generate background image. Keeping light gray theme.");
+            }
+
+            // Hide the background loader once the image attempt is finished
+            backgroundLoader.classList.add('hidden-loader');
+            setTimeout(() => backgroundLoader.style.display = 'none', 500); // Wait for transition
+
+            // --- 2. Load Timeline Images ---
+            const panelContainers = document.querySelectorAll('.image-placeholder');
+            
+            // Collect promises for parallel loading (except for the loop structure)
+            const loadingPromises = [];
+
+            panelContainers.forEach(container => {
+                const containerId = container.id;
+                const prompt = container.getAttribute('data-prompt');
+                if (prompt) {
+                     // Run loadSinglePanel for each container
+                     loadingPromises.push(loadSinglePanel(containerId, prompt));
+                }
+            });
+
+            // Wait for all timeline images to attempt loading
+            await Promise.all(loadingPromises);
+            console.log("All timeline image generation attempts finished.");
+        };
+
+        // Start image generation on window load
+        window.onload = function () {
+            loadImages();
+        };
+    </script>
+</body>
+</html>
