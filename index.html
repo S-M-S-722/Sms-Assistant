@@ -1,178 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messi | The 48 Trophy Career</title>
-    <style>
-        :root {
-            --gold: #d4af37;
-            --dark-bg: #050505;
-            --accent-gray: #1a1a1a;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-        }
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My SMS Robot Web</title>
+  
+  <!-- Favicon for browser tabs -->
+  <link rel="icon" href="https://ik.imagekit.io/shaz/ChatGPT_Image_Oct_31__2025__11_00_46_AM-removebg-preview.png?updatedAt=1761889086163" type="image/png">
+  
+  <!-- Structured data for Google Search results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "My SMS Robot Web",
+    "url": "https://sms-assistant.vercel.app",
+    "logo": "https://ik.imagekit.io/shaz/ChatGPT_Image_Oct_31__2025__11_00_46_AM-removebg-preview.png?updatedAt=1761889086163"
+  }
+  </script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;family=Raleway:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #000;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100vh;
+      width: 100vw;
+    }
 
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            margin: 0;
-            scroll-behavior: smooth;
-        }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #000;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.4), var(--dark-bg)), 
-                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2000&auto=format&fit=crop') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    nav .logo-text {
+      font-size: 1.5rem;
+      color: #00f5d4;
+      font-weight: bold;
+    }
 
-        .hero h1 { font-size: 5rem; margin: 0; letter-spacing: 10px; font-weight: 900; }
-        .hero p { color: var(--gold); font-size: 1.5rem; letter-spacing: 3px; margin-top: 10px; }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
 
-        /* Trophy Counter Dashboard */
-        .stats-bar {
-            background: var(--accent-gray);
-            padding: 40px 10%;
-            display: flex;
-            justify-content: space-around;
-            border-bottom: 2px solid var(--gold);
-        }
+    .page {
+      display: none;
+      padding-top: 100px;
+      padding: 2rem;
+    }
 
-        .stat { text-align: center; }
-        .stat-num { font-size: 3rem; color: var(--gold); font-weight: bold; display: block; }
-        .stat-label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+    .active {
+      display: block;
+    }
 
-        /* Career Chapters */
-        .chapters-container { padding: 80px 10%; }
-        .chapter-heading { text-align: center; margin-bottom: 60px; font-size: 2.5rem; border-bottom: 1px solid #333; padding-bottom: 20px; }
+    .form-group {
+      margin-bottom: 1rem;
+    }
 
-        .chapter-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 120px;
-            align-items: center;
-        }
+    textarea, input {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 2px solid #00f5d4;
+      font-size: 1rem;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+    }
 
-        .chapter-row:nth-child(even) { direction: rtl; }
-        .chapter-row:nth-child(even) .chapter-text { direction: ltr; }
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        .chapter-img img {
-            width: 100%;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            border-left: 5px solid var(--gold);
-            transition: 0.3s;
-        }
-        .chapter-img img:hover { transform: scale(1.02); }
+    #question-title {
+      font-size: 1.5rem;
+      color: #00f5d4;
+      margin-bottom: 1rem;
+    }
 
-        .chapter-text h2 { font-size: 2rem; color: var(--gold); margin-bottom: 15px; }
-        .chapter-text p { color: var(--text-dim); font-size: 1.1rem; line-height: 1.8; }
+    #robot {
+      width: 300px;
+      height: 400px;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvZN2-aNm2mZrReOszLaxZ1QUgUN8Ao5MWXA&s');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 2rem auto;
+    }
 
-        /* Trophy List Table */
-        .trophy-grid {
-            max-width: 800px;
-            margin: 0 auto 100px;
-            padding: 20px;
-            border: 1px solid #222;
-        }
+    #robot-name {
+      text-align: center;
+      font-size: 2rem;
+      color: #00f5d4;
+      background-color: #ffffff;
+      margin-top: -60px;
+      padding: 10px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      top: -50px;
+      font-weight: bold;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,1));
+    }
 
-        .trophy-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px;
-            border-bottom: 1px solid #222;
-        }
-        .trophy-item:last-child { border: none; }
-        .gold-bold { color: var(--gold); font-weight: bold; }
-
-        @media (max-width: 768px) {
-            .chapter-row { grid-template-columns: 1fr; gap: 20px; }
-            .hero h1 { font-size: 3rem; }
-        }
-    </style>
+    .answer-box {
+      border: 2px solid #00f5d4;
+      padding: 1rem;
+      margin-top: 1rem;
+      background-color: #f9f9f9;
+      color: #000;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-    <section class="hero">
-        <h1>MESSI</h1>
-        <p>THE GREATEST OF ALL TIME</p>
-    </section>
+<nav>
+  <div class="logo-text">Welcome to SMS</div>
+  <div>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('work')">Work</a>
+  </div>
+</nav>
 
-    <section class="stats-bar">
-        <div class="stat">
-            <span class="stat-num">48</span>
-            <span class="stat-label">Official Trophies</span>
-        </div>
-        <div class="stat">
-            <span class="stat-num">8</span>
-            <span class="stat-label">Ballon d'Ors</span>
-        </div>
-        <div class="stat">
-            <span class="stat-num">91</span>
-            <span class="stat-label">Goals (Season Record)</span>
-        </div>
-        <div class="stat">
-            <span class="stat-num">2</span>
-            <span class="stat-label">MLS MVP Awards</span>
-        </div>
-    </section>
+<!-- Home Page -->
+<div id="home" class="page active">
+  <div id="question-title">ASK ANYTHING</div>
+  <div style="margin: 0.5rem 0;">
+    <button onclick="startVoiceInput()">🎤 Ask by Voice</button>
+    <select id="languageSelect" onchange="translateAnswer()" style="background-color: #003366; color: #fff; border: 2px solid #00f5d4; padding: 0.5rem; border-radius: 4px;">
+      <option value="en">English</option>
+      <option value="ml">Malayalam</option>
+      <option value="ar">Arabic</option>
+      <option value="ur">Urdu</option>
+      <option value="hi">Hindi</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <textarea id="questionBox" placeholder="Ask any question..."></textarea>
+  </div>
+  <button id="askButton">Ask</button>
+  <div id="answerArea" class="answer-box"></div>
+  <div id="robot"></div>
+  <div id="robot-name">S_M_S</div>
+</div>
 
-    <section class="chapters-container">
-        <h2 class="chapter-heading">CAREER CHAPTERS</h2>
+<!-- Work Page -->
+<div id="work" class="page">
+  <h2 style="text-align:left; color:#000; margin-left:2rem;">SEND A WORK REQUEST</h2>
+  <form action="https://formsubmit.co/72216sms@gmail.com" method="POST" style="max-width:500px; margin:2rem 2rem;">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required="">
+    </div>
+    <div class="form-group">
+      <textarea name="message" placeholder="Tell me the work" rows="5" required=""></textarea>
+    </div>
+    <button type="submit">SEND</button>
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://sites.google.com/view/hikmaofficial">
+  </form>
+</div>
 
-        <div class="chapter-row">
-            <div class="chapter-img">
-                <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1000" alt="Early Career">
-            </div>
-            <div class="chapter-text">
-                <h2>CHAPTER I: THE BARCELONA ERA</h2>
-                <p>17 seasons of dominance. From 2004 to 2021, Messi redefined football at FC Barcelona, winning 10 La Liga titles and 4 Champions Leagues, scoring 672 goals for a single club—a record that may never be broken.</p>
-            </div>
-        </div>
+<script>
+  const bios = {
+    "song kang": `Born: April 23, 1994, Suwon, South Korea<br>Profession: Actor<br>Known For: Love Alarm, Sweet Home, Nevertheless, Forecasting Love and Weather<br>Facts: Known as "Son of Netflix" for frequent appearances in Netflix K-dramas.`,
+    "kim yoo-jung": `Born: September 22, 1999, Seoul, South Korea<br>Profession: Actress<br>Known For: Love in the Moonlight, Backstreet Rookie, 20th Century Girl<br>Facts: Child actress turned award-winning star known for historical dramas.`,
+    "yang yang": `Born: September 9, 1991, Shanghai, China<br>Profession: Actor<br>Known For: Love O2O, You Are My Glory, Who Rules the World<br>Facts: Former dancer turned actor, popular across Asia for romantic dramas.`,
+    "zheng shuang": `Born: August 22, 1991, Shenyang, China<br>Profession: Actress (Currently inactive)<br>Known For: Meteor Shower, Love O2O<br>Controversy: Blacklisted in 2021 over surrogacy scandal and tax evasion.`,
+    "kim soo-hyun": `Born: February 16, 1988, Seoul, South Korea<br>Profession: Actor<br>Known For: Dream High, Moon Embracing the Sun, My Love from the Star, It's Okay to Not Be Okay<br>Facts: One of Korea's highest-paid actors, known for emotional acting.`,
+    "kim ji-won": `Born: October 19, 1992, Seoul, South Korea<br>Profession: Actress<br>Known For: The Heirs, Descendants of the Sun, Fight for My Way, Queen of Tears<br>Facts: Known for portraying both strong and soft characters with depth.`
+  };
 
-        <div class="chapter-row">
-            <div class="chapter-img">
-                <img src="https://images.unsplash.com/photo-1518091043644-c1d445eb5301?q=80&w=1000" alt="World Cup Glory">
-            </div>
-            <div class="chapter-text">
-                <h2>CHAPTER II: ETERNAL GLORY</h2>
-                <p>The quest for international gold. In 2021, Messi broke the drought with the Copa América. In 2022, he completed football by winning the FIFA World Cup in Qatar, followed by a second consecutive Copa América in 2024.</p>
-            </div>
-        </div>
+  const dramas = {
+    "my demon": `My Demon is a fantasy-romance K-drama where a demon loses his powers and must rely on a strong, rich heiress to survive. Stars Kim Yoo-jung and Song Kang.`,
+    "love o2o": `Love O2O is a Chinese romantic drama about two university students who fall in love through an online game. Stars Yang Yang and Zheng Shuang.`,
+    "queen of tears": `Queen of Tears is a K-drama about a married couple overcoming hardships and rekindling their love. Stars Kim Soo-hyun and Kim Ji-won.`
+  };
 
-        <div class="chapter-row">
-            <div class="chapter-img">
-                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000" alt="Inter Miami">
-            </div>
-            <div class="chapter-text">
-                <h2>CHAPTER III: THE AMERICAN DYNASTY</h2>
-                <p>As of 2026, Messi has transformed Inter Miami into a global powerhouse. After winning the 2024 Supporters' Shield and the 2025 MLS Cup, he stands as the most decorated player in the history of the sport.</p>
-            </div>
-        </div>
-    </section>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
 
-    <section class="trophy-grid">
-        <h2 style="text-align: center; color: var(--gold);">TROPHY ROOM (48 TOTAL)</h2>
-        <div class="trophy-item"><span>La Liga Titles</span><span class="gold-bold">10</span></div>
-        <div class="trophy-item"><span>Champions Leagues</span><span class="gold-bold">4</span></div>
-        <div class="trophy-item"><span>FIFA World Cup</span><span class="gold-bold">1</span></div>
-        <div class="trophy-item"><span>Copa América</span><span class="gold-bold">2</span></div>
-        <div class="trophy-item"><span>MLS Cup (2025)</span><span class="gold-bold">1</span></div>
-        <div class="trophy-item"><span>Ligue 1 Titles</span><span class="gold-bold">2</span></div>
-        <div class="trophy-item"><span>Ballon d'Or</span><span class="gold-bold">8</span></div>
-    </section>
+  window.onload = () => {
+    document.getElementById("askButton").onclick = answerQuestion;
+    speechSynthesis.onvoiceschanged = () => {};
+  };
 
-    <footer style="padding: 50px; text-align: center; border-top: 1px solid #1a1a1a; color: #444;">
-        Lionel Messi Career Archive | Updated Jan 2026
-    </footer>
+  function startVoiceInput() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = function (event) {
+      document.getElementById('questionBox').value = event.results[0][0].transcript;
+      answerQuestion();
+    };
+    recognition.start();
+  }
 
-</body>
-</html>
+  async function translateAnswer() {
+    const lang = document.getElementById("languageSelect").value;
+    const text = document.getElementById("answerArea").innerText;
+    if (!text) return;
+
+    try {
+      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`);
+      const data = await res.json();
+      const translated = data[0].map(t => t[0]).join('');
+      document.getElementById("answerArea").innerHTML = `<p><strong>Translated Answer:</strong><br>${translated}</p>`;
+    } catch {
+      document.getElementById("answerArea").innerHTML += `<p style="color:red;">Translation failed.</p>`;
+    }
+  }
+
+  async function answerQuestion() {
+    const question = document.getElementById('questionBox').value.trim().toLowerCase();
+    const answerArea = document.getElementById('answerArea');
+    if (!question) {
+      answerArea.innerHTML = '<p>Please ask something.</p>';
+      return;
+    }
+
+    if (["who are you", "what's your name", "what is your name"].includes(question)) {
+      const smsBio = `
+        <strong>S_M_S Answer:</strong><br>
+        Name: S_M_S<br>
+        Nickname: Shaz<br>
+        From: India, Kerala<br>
+        Education: Darul Huda University (Nahjurrashad Islamic College, 3rd Class)<br>
+        Languages: English, Malayalam, Arabic, Urdu, Hindi<br>
+        Skills: Singing, Speech, Writing, Maths, Science, Social Science, IT<br>
+        Websites: HIKMA, NEMODA<br>
+        Roles: Writer, IT Expert, Opposition Secretary of HIKMA, Top Scorer in HISAN & Class Ranker
+      `;
+      answerArea.innerHTML = `<p>${smsBio}</p>`;
+      speakTranslated("Name: S_M_S. Nickname: Shaz. From India, Kerala. Education: Darul Huda University. Skills include singing, writing, and IT.");
+      return;
+    }
+
+    if (question === "hello") {
+      answerArea.innerHTML = `<p><strong>S_M_S Answer:</strong> Hey, what you want?</p>`;
+      speakTranslated("Hey, what you want?");
+      return;
+    }
+
+    if (dramas[question]) {
+      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Summary:</strong><br>${dramas[question]}</p>`;
+      speakTranslated(dramas[question]);
+      return;
+    }
+
+    if (bios[question]) {
+      answerArea.innerHTML = `<p><strong>${question.toUpperCase()} Biography:</strong><br>${bios[question]}</p>`;
+      speakTranslated(bios[question]);
+      return;
+    }
+
+    // Fallback to Wikipedia
+    answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><em>Searching Wikipedia...</em></p>`;
+    try {
+      const wikiResponse = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(question)}`);
+      const wikiData = await wikiResponse.json();
+      const wikiAnswer = wikiData.extract || 'No result from Wikipedia.';
+      answerArea.innerHTML = `<p><strong>You asked:</strong> ${question}</p><p><strong>S_M_S Answer (Wikipedia):</strong><br>${wikiAnswer}</p>`;
+      speakTranslated(wikiAnswer);
+    } catch {
+      answerArea.innerHTML += `<p style="color:red;"><strong>Error:</strong> Could not fetch full answer.</p>`;
+    }
+  }
+
+  function speakTranslated(text) {
+    const lang = document.getElementById("languageSelect").value;
+    const voices = speechSynthesis.getVoices();
+    let langCode = 'en-US';
+    if (lang === 'ml') langCode = 'ml-IN';
+    else if (lang === 'ar') langCode = 'ar-SA';
+    else if (lang === 'ur') langCode = 'ur-IN';
+    else if (lang === 'hi') langCode = 'hi-IN';
+
+    const targetVoice = voices.find(v => v.lang === langCode) || voices[0];
+
+    fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`)
+      .then(res => res.json())
+      .then(data => {
+        const translated = data[0].map(t => t[0]).join('');
+        const utter = new SpeechSynthesisUtterance(translated);
+        utter.lang = langCode;
+        utter.voice = targetVoice;
+        speechSynthesis.speak(utter);
+      })
+      .catch(() => {
+        const fallback = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(fallback);
+      });
+  }
+</script>
+
+
+</body></html>
