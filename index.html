@@ -1,9 +1,14 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>HILIGA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -171,7 +176,7 @@ body{
     color:#ffd000;
 }
 
-/* PAGE */
+/* PAGES */
 
 .page{
     position:absolute;
@@ -180,7 +185,7 @@ body{
     width:100%;
     height:calc(100vh - 100px);
     overflow-y:auto;
-    padding:40px 20px 150px;
+    padding:40px 20px 80px;
     display:none;
     text-align:center;
 }
@@ -195,7 +200,7 @@ h1{
 }
 
 h2{
-    margin-top:50px;
+    margin-top:40px;
     margin-bottom:20px;
     font-size:35px;
 }
@@ -278,22 +283,127 @@ p{
     color:black;
     font-weight:700;
     cursor:pointer;
-    transition:0.3s;
 }
 
 .team-buttons button:hover{
     background:#ffd000;
 }
 
-.team-section{
+/* GAME PLAN */
+
+.game-plan{
     display:none;
 }
 
-.active-team{
+.active-plan{
     display:block;
 }
 
-/* MATCHES */
+.field{
+    position:relative;
+    width:100%;
+    height:900px;
+    margin-top:30px;
+
+    background:url("https://ik.imagekit.io/shaz/Campo%20De%20Futebol%20PNG%20,%20Futebol,%20Campo%20De%20Futebol%20PNG%20,%20Fundo%20Verde%20Imagem%20PNG%20e%20PSD%20Para%20Download%20Gratuito.jpg");
+
+    background-size:cover;
+    background-position:center;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+.title{
+    position:absolute;
+    top:20px;
+    width:100%;
+    text-align:center;
+    color:white;
+    font-size:35px;
+    font-weight:700;
+    text-shadow:0 0 10px black;
+}
+
+.player{
+    position:absolute;
+    width:75px;
+    height:75px;
+    border:3px solid white;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.player:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px white;
+}
+
+.player img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.label{
+    position:absolute;
+    bottom:-24px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+    font-size:13px;
+    font-weight:700;
+    text-shadow:0 0 8px black;
+}
+
+/* POSITIONS */
+
+.cf{
+    top:10%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.lwf{
+    top:24%;
+    left:18%;
+}
+
+.rwf{
+    top:24%;
+    right:18%;
+}
+
+.dmf{
+    top:48%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.cb1{
+    bottom:18%;
+    left:18%;
+}
+
+.cb2{
+    bottom:22%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.cb3{
+    bottom:18%;
+    right:18%;
+}
+
+.gk{
+    bottom:5%;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+/* MATCH */
 
 .match-card{
     background:#111;
@@ -332,46 +442,67 @@ p{
 /* FOOTER */
 
 .footer{
-    margin-top:60px;
-    padding:30px 20px;
+    width:100%;
+    margin-top:80px;
+    padding:35px 20px;
     text-align:center;
     border-top:1px solid #333;
+    background:#0a0a0a;
 }
 
 .social-icons{
     display:flex;
     justify-content:center;
-    gap:25px;
+    align-items:center;
+    gap:30px;
     margin-bottom:20px;
 }
 
 .social-icons a{
     color:white;
-    font-size:28px;
+    font-size:30px;
     transition:0.3s;
 }
 
 .social-icons a:hover{
     color:#ffd000;
+    transform:scale(1.15);
 }
 
 .contact{
-    font-size:16px;
-    opacity:0.8;
+    font-size:17px;
+    color:#ccc;
 }
 
-/* SCROLLBAR */
+/* MOBILE */
 
-::-webkit-scrollbar{
-    width:6px;
+@media(max-width:700px){
+
+.field{
+    height:700px;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#ffd000;
-    border-radius:20px;
+.player{
+    width:60px;
+    height:60px;
+}
+
+.title{
+    font-size:24px;
+}
+
+h1{
+    font-size:38px;
+}
+
+.score{
+    font-size:45px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -396,8 +527,6 @@ p{
 
 </div>
 
-<!-- MAIN -->
-
 <div class="main">
 
 <!-- NAVBAR -->
@@ -412,20 +541,20 @@ p{
 
 <h3>HILIGA</h3>
 
-<div class="nav" id="nav" style="display: none;">
+<div class="nav" id="nav">
 
 <button onclick="showPage('home')">HOME</button>
 <button onclick="showPage('players')">PLAYERS</button>
-<button onclick="showPage('teams')">TEAMS</button>
+<button onclick="showPage('gameplan')">GAME PLAN</button>
 <button onclick="showPage('matches')">MATCHES</button>
 
 </div>
 
 </div>
 
-<!-- HOME PAGE -->
+<!-- HOME -->
 
-<div class="page" id="home">
+<div class="page active" id="home">
 
 <h1>WELCOME TO HILIGA</h1>
 
@@ -438,74 +567,62 @@ powerful teams and exciting matches.
 
 </div>
 
-<!-- ABOUT SECTION -->
-
 <h2>ABOUT HILIGA</h2>
 
 <div class="scroll-box">
 
 <p>
 HILIGA is a modern football platform created for football lovers,
-young talents, and competitive teams. The league showcases thrilling
-matches, legendary goals, powerful clubs, and rising stars with a
-premium futuristic design. Fans can explore players, teams, match
-results, and football highlights in one stylish experience.
+young talents and competitive teams.
+Fans can explore players, teams, game plans
+and exciting matches in one stylish experience.
 </p>
 
 </div>
-
-<!-- TOP PLAYERS -->
 
 <h2>TOP PLAYERS</h2>
 
 <div class="players-grid">
 
 <div class="player-card">
-
 <div class="player-frame">
 <img src="https://ik.imagekit.io/shaz/SHANAJ%20KADER_card%20(1).png">
 </div>
-
-<div class="player-name">
-SHANAJ KADER
-</div>
-
+<div class="player-name">SHANAJ</div>
 </div>
 
 <div class="player-card">
+<div class="player-frame">
+<img src="https://ik.imagekit.io/shaz/SHAMMAS_card.png">
+</div>
+<div class="player-name">SHAMMAS</div>
+</div>
 
+<div class="player-card">
 <div class="player-frame">
 <img src="https://picsum.photos/300/400?random=90">
 </div>
-
-<div class="player-name">
-RAHI
+<div class="player-name">FAZAL</div>
 </div>
-
-</div>
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=91">
-</div>
-
-<div class="player-name">
-FAZAL
-</div>
-
-</div>
-
-
 
 </div>
 
 <div class="footer">
 
 <div class="social-icons">
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
+
+<a href="https://instagram.com" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://facebook.com" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://youtube.com" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+
 </div>
 
 <div class="contact">
@@ -516,466 +633,30 @@ Contact : hikmanric18@gmail.com
 
 </div>
 
-<!-- PLAYERS PAGE -->
+<!-- PLAYERS -->
 
 <div class="page" id="players">
 
 <h1>32 PLAYERS</h1>
 
-<div class="players-grid" id="playersGrid">
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://ik.imagekit.io/shaz/SHANAJ%20KADER_card%20(1).png">
-</div>
-
-<div class="player-name">SHANAJ KADER
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://ik.imagekit.io/shaz/SHAMMAS_card.png">
-</div>
-
-<div class="player-name">SHAMMAS
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=3">
-</div>
-
-<div class="player-name">
-PLAYER 3
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=4">
-</div>
-
-<div class="player-name">
-PLAYER 4
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=5">
-</div>
-
-<div class="player-name">
-PLAYER 5
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=6">
-</div>
-
-<div class="player-name">
-PLAYER 6
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=7">
-</div>
-
-<div class="player-name">
-PLAYER 7
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=8">
-</div>
-
-<div class="player-name">
-PLAYER 8
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=9">
-</div>
-
-<div class="player-name">
-PLAYER 9
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=10">
-</div>
-
-<div class="player-name">
-PLAYER 10
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=11">
-</div>
-
-<div class="player-name">
-PLAYER 11
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=12">
-</div>
-
-<div class="player-name">
-PLAYER 12
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=13">
-</div>
-
-<div class="player-name">
-PLAYER 13
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=14">
-</div>
-
-<div class="player-name">
-PLAYER 14
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=15">
-</div>
-
-<div class="player-name">
-PLAYER 15
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=16">
-</div>
-
-<div class="player-name">
-PLAYER 16
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=17">
-</div>
-
-<div class="player-name">
-PLAYER 17
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=18">
-</div>
-
-<div class="player-name">
-PLAYER 18
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=19">
-</div>
-
-<div class="player-name">
-PLAYER 19
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=20">
-</div>
-
-<div class="player-name">
-PLAYER 20
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=21">
-</div>
-
-<div class="player-name">
-PLAYER 21
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=22">
-</div>
-
-<div class="player-name">
-PLAYER 22
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=23">
-</div>
-
-<div class="player-name">
-PLAYER 23
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=24">
-</div>
-
-<div class="player-name">
-PLAYER 24
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=25">
-</div>
-
-<div class="player-name">
-PLAYER 25
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=26">
-</div>
-
-<div class="player-name">
-PLAYER 26
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=27">
-</div>
-
-<div class="player-name">
-PLAYER 27
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=28">
-</div>
-
-<div class="player-name">
-PLAYER 28
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=29">
-</div>
-
-<div class="player-name">
-PLAYER 29
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=30">
-</div>
-
-<div class="player-name">
-PLAYER 30
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=31">
-</div>
-
-<div class="player-name">
-PLAYER 31
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=32">
-</div>
-
-<div class="player-name">
-PLAYER 32
-</div>
-
-</div>
-
-</div>
+<div class="players-grid" id="playersGrid"></div>
 
 <div class="footer">
 
 <div class="social-icons">
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
+
+<a href="https://instagram.com" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://facebook.com" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://youtube.com" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+
 </div>
 
 <div class="contact">
@@ -986,132 +667,66 @@ Contact : hikmanric18@gmail.com
 
 </div>
 
-<!-- TEAMS PAGE -->
+<!-- GAME PLAN -->
 
-<div class="page active" id="teams">
+<div class="page" id="gameplan">
 
-<h1>3 TEAMS</h1>
+<h1>GAME PLANS</h1>
 
 <div class="team-buttons">
 
-<button onclick="showTeam('team1')">TEAM 1</button>
-<button onclick="showTeam('team2')">TEAM 2</button>
-<button onclick="showTeam('team3')">TEAM 3</button>
+<button onclick="showGamePlan('plan1')">TEAM 1</button>
+<button onclick="showGamePlan('plan2')">TEAM 2</button>
+<button onclick="showGamePlan('plan3')">TEAM 3</button>
 
 </div>
 
 <!-- TEAM 1 -->
 
-<div class="team-section active-team" id="team1">
+<div class="game-plan active-plan" id="plan1">
 
-<div class="players-grid" id="team1Grid">
+<div class="field">
 
-<div class="player-card">
+<div class="title">TEAM 1</div>
 
-<div class="player-frame">
+<div class="player cf">
 <img src="https://ik.imagekit.io/shaz/SHANAJ%20KADER_card%20(1).png">
+<div class="label">CF</div>
 </div>
 
-<div class="player-name">SHANAJ
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player lwf">
 <img src="https://ik.imagekit.io/shaz/SHAMMAS_card.png">
+<div class="label">LWF</div>
 </div>
 
-<div class="player-name">SHAMMAS
+<div class="player rwf">
+<img src="https://picsum.photos/300/400?random=1">
+<div class="label">RWF</div>
 </div>
 
+<div class="player dmf">
+<img src="https://picsum.photos/300/400?random=2">
+<div class="label">DMF</div>
 </div>
 
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cb1">
 <img src="https://picsum.photos/300/400?random=3">
+<div class="label">CB</div>
 </div>
 
-<div class="player-name">
-PLAYER 3
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cb2">
 <img src="https://picsum.photos/300/400?random=4">
+<div class="label">CB</div>
 </div>
 
-<div class="player-name">
-PLAYER 4
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cb3">
 <img src="https://picsum.photos/300/400?random=5">
+<div class="label">CB</div>
 </div>
 
-<div class="player-name">
-PLAYER 5
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player gk">
 <img src="https://picsum.photos/300/400?random=6">
-</div>
-
-<div class="player-name">
-PLAYER 6
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=7">
-</div>
-
-<div class="player-name">
-PLAYER 7
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=8">
-</div>
-
-<div class="player-name">
-PLAYER 8
-</div>
-
+<div class="label">GK</div>
 </div>
 
 </div>
@@ -1120,118 +735,50 @@ PLAYER 8
 
 <!-- TEAM 2 -->
 
-<div class="team-section" id="team2">
+<div class="game-plan" id="plan2">
 
-<div class="players-grid" id="team2Grid">
+<div class="field">
 
-<div class="player-card">
+<div class="title">TEAM 2</div>
 
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=9">
-</div>
-
-<div class="player-name">
-PLAYER 9
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=10">
-</div>
-
-<div class="player-name">
-PLAYER 10
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cf">
 <img src="https://picsum.photos/300/400?random=11">
+<div class="label">CF</div>
 </div>
 
-<div class="player-name">
-PLAYER 11
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player lwf">
 <img src="https://picsum.photos/300/400?random=12">
+<div class="label">LWF</div>
 </div>
 
-<div class="player-name">
-PLAYER 12
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player rwf">
 <img src="https://picsum.photos/300/400?random=13">
+<div class="label">RWF</div>
 </div>
 
-<div class="player-name">
-PLAYER 13
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player dmf">
 <img src="https://picsum.photos/300/400?random=14">
+<div class="label">DMF</div>
 </div>
 
-<div class="player-name">
-PLAYER 14
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cb1">
 <img src="https://picsum.photos/300/400?random=15">
+<div class="label">CB</div>
 </div>
 
-<div class="player-name">
-PLAYER 15
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cb2">
 <img src="https://picsum.photos/300/400?random=16">
+<div class="label">CB</div>
 </div>
 
-<div class="player-name">
-PLAYER 16
+<div class="player cb3">
+<img src="https://picsum.photos/300/400?random=17">
+<div class="label">CB</div>
 </div>
 
+<div class="player gk">
+<img src="https://picsum.photos/300/400?random=18">
+<div class="label">GK</div>
 </div>
 
 </div>
@@ -1240,118 +787,50 @@ PLAYER 16
 
 <!-- TEAM 3 -->
 
-<div class="team-section" id="team3">
+<div class="game-plan" id="plan3">
 
-<div class="players-grid" id="team3Grid">
+<div class="field">
 
-<div class="player-card">
+<div class="title">TEAM 3</div>
 
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=17">
-</div>
-
-<div class="player-name">
-PLAYER 17
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=18">
-</div>
-
-<div class="player-name">
-PLAYER 18
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=19">
-</div>
-
-<div class="player-name">
-PLAYER 19
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=20">
-</div>
-
-<div class="player-name">
-PLAYER 20
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player cf">
 <img src="https://picsum.photos/300/400?random=21">
+<div class="label">CF</div>
 </div>
 
-<div class="player-name">
-PLAYER 21
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player lwf">
 <img src="https://picsum.photos/300/400?random=22">
+<div class="label">LWF</div>
 </div>
 
-<div class="player-name">
-PLAYER 22
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player rwf">
 <img src="https://picsum.photos/300/400?random=23">
+<div class="label">RWF</div>
 </div>
 
-<div class="player-name">
-PLAYER 23
-</div>
-
-</div>
-
-
-
-<div class="player-card">
-
-<div class="player-frame">
+<div class="player dmf">
 <img src="https://picsum.photos/300/400?random=24">
+<div class="label">DMF</div>
 </div>
 
-<div class="player-name">
-PLAYER 24
+<div class="player cb1">
+<img src="https://picsum.photos/300/400?random=25">
+<div class="label">CB</div>
 </div>
 
+<div class="player cb2">
+<img src="https://picsum.photos/300/400?random=26">
+<div class="label">CB</div>
+</div>
+
+<div class="player cb3">
+<img src="https://picsum.photos/300/400?random=27">
+<div class="label">CB</div>
+</div>
+
+<div class="player gk">
+<img src="https://picsum.photos/300/400?random=28">
+<div class="label">GK</div>
 </div>
 
 </div>
@@ -1361,9 +840,19 @@ PLAYER 24
 <div class="footer">
 
 <div class="social-icons">
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
+
+<a href="https://instagram.com" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://facebook.com" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://youtube.com" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+
 </div>
 
 <div class="contact">
@@ -1374,7 +863,7 @@ Contact : hikmanric18@gmail.com
 
 </div>
 
-<!-- MATCHES PAGE -->
+<!-- MATCHES -->
 
 <div class="page" id="matches">
 
@@ -1427,9 +916,19 @@ Contact : hikmanric18@gmail.com
 <div class="footer">
 
 <div class="social-icons">
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
+
+<a href="https://instagram.com" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://facebook.com" target="_blank">
+<i class="fab fa-facebook"></i>
+</a>
+
+<a href="https://youtube.com" target="_blank">
+<i class="fab fa-youtube"></i>
+</a>
+
 </div>
 
 <div class="contact">
@@ -1458,7 +957,7 @@ nav.style.display = "flex";
 
 }
 
-/* PAGE SWITCH */
+/* PAGE */
 
 function showPage(pageId){
 
@@ -1472,15 +971,15 @@ document.getElementById("nav").style.display="none";
 
 }
 
-/* TEAM SWITCH */
+/* GAME PLAN */
 
-function showTeam(teamId){
+function showGamePlan(planId){
 
-document.querySelectorAll('.team-section').forEach(team=>{
-team.classList.remove('active-team');
+document.querySelectorAll('.game-plan').forEach(plan=>{
+plan.classList.remove('active-plan');
 });
 
-document.getElementById(teamId).classList.add('active-team');
+document.getElementById(planId).classList.add('active-plan');
 
 }
 
@@ -1508,54 +1007,7 @@ PLAYER ${i}
 
 }
 
-/* TEAM PLAYERS */
-
-function generateTeam(gridId,start){
-
-const grid = document.getElementById(gridId);
-
-for(let i=start;i<start+8;i++){
-
-grid.innerHTML += `
-
-<div class="player-card">
-
-<div class="player-frame">
-<img src="https://picsum.photos/300/400?random=${i}">
-</div>
-
-<div class="player-name">
-PLAYER ${i}
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-generateTeam("team1Grid",1);
-generateTeam("team2Grid",9);
-generateTeam("team3Grid",17);
-
 </script>
 
-
-
-<audio class="audio-output" style="display: none;"></audio><div id="volume-booster-visusalizer">
-                    <div class="sound">
-                        <div class="sound-icon"></div>
-                        <div class="sound-wave sound-wave_one"></div>
-                        <div class="sound-wave sound-wave_two"></div>
-                        <div class="sound-wave sound-wave_three"></div>
-                    </div>
-                    <div class="segments-box">
-                        <div data-range="1-20" class="segment"><span></span></div>
-                        <div data-range="21-40" class="segment"><span></span></div>
-                        <div data-range="41-60" class="segment"><span></span></div>
-                        <div data-range="61-80" class="segment"><span></span></div>
-                        <div data-range="81-100" class="segment"><span></span></div>
-                    </div>
-                </div></body></html>
+</body>
+</html>
