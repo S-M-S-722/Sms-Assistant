@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>HLIGA ULTIMATE | Match & Coins</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>HLIGA ULTIMATE | Match &amp; Coins</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -340,14 +338,28 @@
     .loss-badge { color: #e74c3c; font-weight: bold; }
     .flex-center { display: flex; align-items: center; gap: 6px; }
   </style>
-</head>
+<style>
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+    .result-player {
+      animation: slideInLeft 0.5s ease-out;
+    }
+  </style></head>
 <body>
 
 <!-- LOGIN -->
 <div class="page active" id="loginPage">
   <div class="login-box">
     <img src="https://ik.imagekit.io/shaz/Your_paragraph_text__1_-removebg-preview.png" style="width:150px; margin:0 auto 10px;">
-    <h2>HLIGA LOGIN</h2>
+    <h2>HiLIGA LOGIN</h2>
     <input id="username" placeholder="Username">
     <input id="password" type="password" placeholder="Password">
     <button class="login-btn" onclick="login()">ENTER ARENA</button>
@@ -417,8 +429,8 @@
           <div style="font-weight:bold;" id="opponentNameDisplay">Liverpool FC</div>
         </div>
         <div style="display:flex; gap:1rem; justify-content:center; margin:1rem 0;">
-          <input type="number" id="specialScore" value="0" readonly style="width:80px; text-align:center; font-size:1.5rem; font-weight:bold;"><span style="font-size:1.8rem;">—</span>
-          <input type="number" id="opponentScore" value="0" readonly style="width:80px; text-align:center; font-size:1.5rem; font-weight:bold;">
+          <input type="number" id="specialScore" value="0" readonly="" style="width:80px; text-align:center; font-size:1.5rem; font-weight:bold;"><span style="font-size:1.8rem;">—</span>
+          <input type="number" id="opponentScore" value="0" readonly="" style="width:80px; text-align:center; font-size:1.5rem; font-weight:bold;">
         </div>
         <div id="matchResultMessage" style="background:#eae2d0; border-radius:1.5rem; padding:0.6rem; text-align:center;">
           Click "PLAY MATCH" to see the result!
@@ -445,7 +457,7 @@
 
 <!-- RESULT ANIMATION - Player card appears on LEFT side -->
 <div class="result-page" id="resultPage">
-  <video class="result-video" id="resultVideo" autoplay muted playsinline>
+  <video class="result-video" id="resultVideo" autoplay="" muted="" playsinline="">
     <source src="https://ik.imagekit.io/shaz/Untitled%20design%20(1).mp4" type="video/mp4">
   </video>
   <img id="resultPlayer" class="result-player" alt="New Player Card">
@@ -711,5 +723,20 @@
   window.onload = () => { if (currentUser) refreshAllUI(); const playBtn = document.getElementById("playMatchBtn"); const resetBtn = document.getElementById("resetMatchesBtn"); const oppSelect = document.getElementById("opponentSelect"); if (playBtn) playBtn.addEventListener("click", () => { const val = document.getElementById("opponentSelect").value; playMatch(val); }); if (resetBtn) resetBtn.addEventListener("click", resetAllMatches); if (oppSelect) oppSelect.addEventListener("change", updateOpponentDisplay); };
   window.spinPack = spinPack; window.selectPlayerForAnyPosition = selectPlayerForAnyPosition; window.assignToPosition = assignToPosition; window.showHome = showHome; window.showPlayers = showPlayers; window.showPlan = showPlan; window.showMatchPage = showMatchPage;
 </script>
-</body>
-</html>
+
+
+<audio class="audio-output" style="display: none;"></audio><div id="volume-booster-visusalizer">
+                    <div class="sound">
+                        <div class="sound-icon"></div>
+                        <div class="sound-wave sound-wave_one"></div>
+                        <div class="sound-wave sound-wave_two"></div>
+                        <div class="sound-wave sound-wave_three"></div>
+                    </div>
+                    <div class="segments-box">
+                        <div data-range="1-20" class="segment"><span></span></div>
+                        <div data-range="21-40" class="segment"><span></span></div>
+                        <div data-range="41-60" class="segment"><span></span></div>
+                        <div data-range="61-80" class="segment"><span></span></div>
+                        <div data-range="81-100" class="segment"><span></span></div>
+                    </div>
+                </div></body></html>
